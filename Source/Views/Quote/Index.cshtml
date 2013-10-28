@@ -1,4 +1,5 @@
-﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<IEnumerable<Agile.Minimalist.Model.Quote>>
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Agile.Minimalist.Model.QuoteList>
+@using System.Linq;
 
 @{
     ViewBag.Title = "All Quotes";
@@ -10,13 +11,6 @@
 <p>
     <a href="quote/create">Create New</a>
 </p>
-@*<div>
-    Search:
-    <form method="get" action="quote/search">
-        <input type="text" name="id" />
-        <button type="submit">Search</button>
-    </form>
-</div>*@
 <table class="table table-bordered table-hover">
     <tr>
         <th>
@@ -37,7 +31,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Quotes)
     {
         <tr>
             <td>
@@ -63,3 +57,14 @@
     }
 
 </table>
+
+@section authentication{
+    @if (Model.IsLoggedIn)
+    {
+        <li><a href="/logout">Logout</a></li>
+    }
+    else
+    {
+        <li><a href="/login">Login</a></li>
+    }
+}

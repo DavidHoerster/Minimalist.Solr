@@ -23,7 +23,7 @@ namespace Agile.Minimalist.Repository
             _ctx = context;
         }
 
-        public IEnumerable<Quote> GetAll()
+        public QuoteList GetAll()
         {
             var quotes = _ctx.Query(SolrQuery.All);
             var trimmedQuotes = quotes.Select(q => new Quote
@@ -35,7 +35,11 @@ namespace Agile.Minimalist.Repository
                 Title = q.Title,
                 Year = q.Year
             });
-            return trimmedQuotes;
+            var theQuotes = new QuoteList()
+            {
+                Quotes = trimmedQuotes
+            };
+            return theQuotes;
         }
 
         public Quote GetById(String quoteId)

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Agile.Minimalist.Model
 {
-    public class QuoteDetail
+    public class QuoteDetail : BaseQuote
     {
         public String Id { get; set; }
         public String Title { get; set; }

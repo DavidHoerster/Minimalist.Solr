@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Agile.Minimalist.Model
 {
-    public class Quote
+    public class Quote : BaseQuote
     {
         [SolrUniqueKey("id")]
         public String Id { get; set; }

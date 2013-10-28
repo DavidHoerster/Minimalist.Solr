@@ -36,6 +36,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Source\Agile.Minimalist.Models.dll</HintPath>
     </Reference>
+    <Reference Include="Agile.Minimalist.Repository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Source\Agile.Minimalist.Repository.dll</HintPath>
+    </Reference>
     <Reference Include="Agile.Minimalist.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Source\Agile.Minimalist.Service.dll</HintPath>
@@ -46,8 +50,12 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\..\..\SOLRNET_Build\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy">
-      <HintPath>..\packages\Nancy.0.20.0\lib\net40\Nancy.dll</HintPath>
+    <Reference Include="Nancy, Version=0.21.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Nancy.0.21.0\lib\net40\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Authentication.Forms">
+      <HintPath>..\packages\Nancy.Authentication.Forms.0.21.0\lib\net40\Nancy.Authentication.Forms.dll</HintPath>
     </Reference>
     <Reference Include="Nancy.Hosting.Self">
       <HintPath>..\packages\Nancy.Hosting.Self.0.20.0\lib\net40\Nancy.Hosting.Self.dll</HintPath>
