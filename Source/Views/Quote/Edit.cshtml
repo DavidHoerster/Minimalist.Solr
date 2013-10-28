@@ -1,0 +1,59 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Agile.Minimalist.Model.Quote>
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h2>Edit - @Model.Title</h2>
+
+<form action="/quote/edit/@Model.Id" method="post">
+    <fieldset>
+        <legend>Quote</legend>
+
+        <input type="hidden" value="@Model.Id" />
+
+        <div class="editor-label">
+            Title:
+        </div>
+        <div class="editor-field">
+            <input type="text" name="Title" value="@Model.Title" />
+        </div>
+
+        <div class="editor-label">
+            Article Body:
+        </div>
+        <div class="editor-field">
+            <textarea name="ArticleBody" rows="20" cols="60">@Model.ArticleBody</textarea>
+        </div>
+
+        <div class="editor-label">
+            Year:
+        </div>
+        <div class="editor-field">
+            <input type="text" name="Year" value="@Model.Year" />
+        </div>
+
+        <div class="editor-label">
+            Abstract:
+        </div>
+        <div class="editor-field">
+            <textarea name="Abstract" rows="20" cols="60">@Model.Abstract</textarea>
+        </div>
+
+        <div class="editor-label">
+            Source:
+        </div>
+        <div class="editor-field">
+            <input type="text" name="Source" value="@Model.Source" />
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+</form>
+
+<div>
+    <a href="/quote">Back to List</a>
+</div>

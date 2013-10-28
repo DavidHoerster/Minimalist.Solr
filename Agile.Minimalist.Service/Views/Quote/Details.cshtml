@@ -1,0 +1,60 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Agile.Minimalist.Model.QuoteDetail>
+
+@{
+    ViewBag.Title = "Quote Details";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Title</h2>
+
+<fieldset>
+    <legend>Quote</legend>
+
+    <div class="display-label">
+        Title:
+    </div>
+    <div class="display-field">
+        @Model.Title
+    </div>
+
+    <div class="display-label">
+        Article Body:
+    </div>
+    <div class="display-field">
+        @Model.ArticleBody
+    </div>
+
+    <div class="display-label">
+        Year:
+    </div>
+    <div class="display-field">
+        @Model.Year
+    </div>
+
+    <div class="display-label">
+        Abstract:
+    </div>
+    <div class="display-field">
+        @Model.Abstract
+    </div>
+
+    <div class="display-label">
+        Source:
+    </div>
+    <div class="display-field">
+        @Model.Source
+    </div>
+</fieldset>
+<p>
+    <form action="/quote/edit/@Model.Id" method="get"><input type="submit" value="Edit" /></form>
+    <a href="/quote">Back to List</a>
+</p>
+
+<p>
+    Similar Items:<br />
+    @foreach (var quote in Model.SimilarItems)
+    {
+        <a href="/quote/@quote.Id">@quote.Title</a>
+        <br />
+    }
+</p>
