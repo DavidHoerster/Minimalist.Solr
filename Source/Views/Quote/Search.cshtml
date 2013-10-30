@@ -14,7 +14,7 @@
         <p>
             <strong><a href="/quote/@item.Id">@item.Title</a></strong><br/>
             <strong><em>@item.Source</em></strong><br/>
-            @item.ArticleBodySnippet<br />
+            @Html.Raw(item.ArticleBodySnippet)<br />
             <em>Score: @item.Score</em>
         </p>
     </div>
