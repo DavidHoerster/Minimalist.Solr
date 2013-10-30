@@ -57,14 +57,3 @@
     }
 
 </table>
-
-@section authentication{
-    @if (Model.IsLoggedIn)
-    {
-        <li><a href="/logout">Logout</a></li>
-    }
-    else
-    {
-        <li><a href="/login">Login</a></li>
-    }
-}

@@ -1,4 +1,4 @@
-﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<IEnumerable<Agile.Minimalist.Model.QuoteHighlight>>
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Agile.Minimalist.Model.QuoteHighlights>
 
 @{
     ViewBag.Title = "Search Results";
@@ -6,9 +6,9 @@
 }
 
 <a href="/quote">Back to List</a>
-<h2>Showing @ViewBag.NumberShown of @ViewBag.TotalResults for "@ViewBag.Term"</h2>
+<h2>Showing @ViewBag.NumberShown of @ViewBag.TotalResults for " @ViewBag.Term "</h2>
 
-@foreach (var item in Model)
+@foreach (var item in Model.Quotes)
 {
     <div>
         <p>

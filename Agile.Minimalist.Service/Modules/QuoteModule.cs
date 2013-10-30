@@ -25,6 +25,8 @@ namespace Agile.Minimalist.Modules
                 return View["Index.cshtml", quotes];
             };
 
+            Get["/api/quote"] = _ => { return _repo.GetAll(); };
+
             Get["/quote/{id}"] = args =>
             {
                 var quote = _repo.GetWithDetail(args.id);
@@ -35,8 +37,10 @@ namespace Agile.Minimalist.Modules
             Get["/quote/create"] = _ =>
             {
                 this.RequiresAuthentication();
+                var model = new Quote();
+                SetUserName(model);
 
-                return View["create.cshtml"];
+                return View["create.cshtml", model];
             };
 
             Post["/quote/create"] = args =>
@@ -88,12 +92,15 @@ namespace Agile.Minimalist.Modules
 
             Get["/quote/search"] = args =>
             {
+                var model = new QuoteHighlights();
+                SetUserName(model);
                 Int32 numFound;
-                var searchResults = _repo.Search(this.Request.Query.id, out numFound);
+                var searchResults = _repo.Search((String)this.Request.Query.id, out numFound);
                 ViewBag.TotalResults = numFound;
-                ViewBag.NumberShown = searchResults.Count;
-                ViewBag.Term = this.Request.Query.id;
-                return View["search.cshtml", searchResults];
+                ViewBag.NumberShown = searchResults.Count();
+                ViewBag.Term = (String)this.Request.Query.id;
+                model.Quotes = searchResults.ToList();
+                return View["search.cshtml", model];
             };
         }
 
