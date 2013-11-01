@@ -10,18 +10,18 @@ using SolrNet.Commands.Parameters;
 
 namespace Agile.Minimalist.Repository
 {
-    public class QuoteRepository
+    public class QuoteRepository : Agile.Minimalist.Repository.IQuoteRepository
     {
         private readonly ISolrOperations<Quote> _ctx;
-        public QuoteRepository()
+        public QuoteRepository(ISolrOperations<Quote> ctx)
         {
-            _ctx = ServiceLocator.Current.GetInstance<ISolrOperations<Quote>>();
+            _ctx = ctx; //ServiceLocator.Current.GetInstance<ISolrOperations<Quote>>();
         }
 
-        public QuoteRepository(ISolrOperations<Quote> context)
-        {
-            _ctx = context;
-        }
+        //public QuoteRepository(ISolrOperations<Quote> context)
+        //{
+        //    _ctx = context;
+        //}
 
         public QuoteList GetAll()
         {
