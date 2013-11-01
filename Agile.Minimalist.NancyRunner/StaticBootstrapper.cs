@@ -26,6 +26,17 @@ namespace Agile.Minimalist.NancyRunner
 
         protected override void ApplicationStartup(Nancy.TinyIoc.TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines)
         {
+            pipelines.BeforeRequest += (ctx) =>
+            {
+                Console.WriteLine("starting up application");
+                return null;
+            };
+
+            pipelines.AfterRequest += (ctx) =>
+            {
+                Console.WriteLine("ending application");
+            };
+
             container
                 .Register<IQuoteRepository>(new QuoteRepository(ServiceLocator.Current.GetInstance<ISolrOperations<Quote>>()));
 
@@ -41,6 +52,12 @@ namespace Agile.Minimalist.NancyRunner
 
         protected override void RequestStartup(Nancy.TinyIoc.TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines, NancyContext context)
         {
+            pipelines.BeforeRequest += (ctx) =>
+            {
+                Console.WriteLine("starting request for {0}", ctx.CurrentUser == null ? "Guest" : ctx.CurrentUser.UserName);
+                return null;
+            };
+
             var formsAuthConfiguration =
                 new FormsAuthenticationConfiguration()
                 {
