@@ -13,10 +13,10 @@ namespace Agile.Minimalist.Modules
 {
     public class QuoteModule : NancyModule
     {
-        private readonly QuoteRepository _repo;
-        public QuoteModule()
+        private readonly IQuoteRepository _repo;
+        public QuoteModule(IQuoteRepository repo)
         {
-            _repo = new QuoteRepository();
+            _repo = repo;
 
             Get["/quote"] = _ =>
             {
