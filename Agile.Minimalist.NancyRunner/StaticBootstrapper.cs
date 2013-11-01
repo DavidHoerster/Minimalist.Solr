@@ -28,17 +28,27 @@ namespace Agile.Minimalist.NancyRunner
         {
             pipelines.BeforeRequest += (ctx) =>
             {
-                Console.WriteLine("starting up application");
+                Console.WriteLine("starting up request, but set in app startup");
                 return null;
             };
 
             pipelines.AfterRequest += (ctx) =>
             {
-                Console.WriteLine("ending application");
+                Console.WriteLine("ending request, but set in app startup");
             };
 
             container
                 .Register<IQuoteRepository>(new QuoteRepository(ServiceLocator.Current.GetInstance<ISolrOperations<Quote>>()));
+
+
+            var formsAuthConfiguration =
+                new FormsAuthenticationConfiguration()
+                {
+                    RedirectUrl = "~/login",
+                    UserMapper = container.Resolve<IUserMapper>(),
+                };
+
+            FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
 
             base.ApplicationStartup(container, pipelines);
         }
@@ -57,15 +67,6 @@ namespace Agile.Minimalist.NancyRunner
                 Console.WriteLine("starting request for {0}", ctx.CurrentUser == null ? "Guest" : ctx.CurrentUser.UserName);
                 return null;
             };
-
-            var formsAuthConfiguration =
-                new FormsAuthenticationConfiguration()
-                {
-                    RedirectUrl = "~/login",
-                    UserMapper = container.Resolve<IUserMapper>(),
-                };
-
-            FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
         }
     }
 }
