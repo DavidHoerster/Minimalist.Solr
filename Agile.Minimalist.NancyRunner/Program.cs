@@ -26,6 +26,7 @@ namespace Agile.Minimalist.NancyRunner
                 }
             };
             var url = ConfigurationManager.AppSettings["minimal.url"];
+
             Console.WriteLine("Register host URL of {0}", url);
             var nancyHost = new NancyHost(new StaticBootstrapper(), 
                                             nancyConfig, 

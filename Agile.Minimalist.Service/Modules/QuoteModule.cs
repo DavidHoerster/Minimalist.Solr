@@ -18,6 +18,16 @@ namespace Agile.Minimalist.Modules
         {
             _repo = repo;
 
+            #region Before Request Hook
+
+            Before += ctx =>
+            {
+                Console.WriteLine("I'm about to execute {0}", ctx.Request.Url.ToString());
+                return null;
+            };
+
+            #endregion
+
             Get["/quote"] = _ =>
             {
                 var quotes = _repo.GetAll();
