@@ -65,6 +65,7 @@ namespace Agile.Minimalist.NancyRunner
             pipelines.BeforeRequest += (ctx) =>
             {
                 Console.WriteLine("starting request for {0}", ctx.CurrentUser == null ? "Guest" : ctx.CurrentUser.UserName);
+                Console.WriteLine("I could drop a command into a queue here for {0} {1}", context.Request.Method, context.Request.Url.ToString());
                 return null;
             };
         }
