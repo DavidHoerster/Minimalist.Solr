@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Agile.Minimalist.Model;
+using Nancy.Hosting.Self;
 using SolrNet;
 
 namespace Agile.Minimalist.NancyRunner
@@ -17,16 +19,19 @@ namespace Agile.Minimalist.NancyRunner
             Startup.Init<Quote>("http://localhost:8983/solr/historicalQuotes");
 
             Console.WriteLine("Search service initialized.  Start host configuration");
-            var nancyConfig = new Nancy.Hosting.Self.HostConfiguration()
+            var nancyConfig = new HostConfiguration()
             {
-                UrlReservations = new Nancy.Hosting.Self.UrlReservations()
+                UrlReservations = new UrlReservations()
                 {
                     CreateAutomatically = true,
                     User = "Everyone"
                 }
             };
-            Console.WriteLine("Register host URL of 50000");
-            var nancyHost = new Nancy.Hosting.Self.NancyHost(new StaticBootstrapper(), nancyConfig, new Uri("http://localhost:50000"));
+            var url = ConfigurationManager.AppSettings["minimal.url"];
+            Console.WriteLine("Register host URL of {0}", url);
+            var nancyHost = new NancyHost(new StaticBootstrapper(), 
+                                            nancyConfig, 
+                                            new Uri(url));
 
             Console.WriteLine("Start Minimalist Service");
             nancyHost.Start();
