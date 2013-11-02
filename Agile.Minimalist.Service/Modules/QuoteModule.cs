@@ -25,7 +25,13 @@ namespace Agile.Minimalist.Modules
                 return View["Index.cshtml", quotes];
             };
 
-            Get["/api/quote"] = _ => { return _repo.GetAll(); };
+            Get["/api/quote"] = _ =>
+            {
+                //need to materialize the list...
+                //  content negotiation won't render to XML
+                //  but JSON works fine if just an IEnumerable<>
+                return _repo.GetAll().Quotes.ToList();
+            };
 
             Get["/quote/{id}"] = args =>
             {

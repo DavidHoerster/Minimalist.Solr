@@ -19,6 +19,8 @@ namespace Agile.Minimalist.NancyRunner
         {
             base.ConfigureConventions(conventions);
 
+            //set this up to define a directory of static assets
+            // contains my JS, CSS, Images, etc.
             conventions.StaticContentsConventions.Add(
                 StaticContentConventionBuilder.AddDirectory("/assets")
             );
@@ -26,6 +28,23 @@ namespace Agile.Minimalist.NancyRunner
 
         protected override void ApplicationStartup(Nancy.TinyIoc.TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines)
         {
+            //register some non-discoverable dependencies
+            container
+                .Register<IQuoteRepository>(new QuoteRepository(ServiceLocator.Current.GetInstance<ISolrOperations<Quote>>()));
+            container.Register<IUserMapper, UserRepository>();
+
+
+            //configure forms authentication
+            var formsAuthConfiguration =
+                new FormsAuthenticationConfiguration()
+                {
+                    RedirectUrl = "~/login",
+                    UserMapper = container.Resolve<IUserMapper>(),
+                };
+            FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
+
+
+            //silly logging statements
             pipelines.BeforeRequest += (ctx) =>
             {
                 Console.WriteLine("starting up request, but set in app startup");
@@ -37,31 +56,21 @@ namespace Agile.Minimalist.NancyRunner
                 Console.WriteLine("ending request, but set in app startup");
             };
 
-            container
-                .Register<IQuoteRepository>(new QuoteRepository(ServiceLocator.Current.GetInstance<ISolrOperations<Quote>>()));
 
-
-            var formsAuthConfiguration =
-                new FormsAuthenticationConfiguration()
-                {
-                    RedirectUrl = "~/login",
-                    UserMapper = container.Resolve<IUserMapper>(),
-                };
-
-            FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
-
+            //wire everything else up automagically
             base.ApplicationStartup(container, pipelines);
         }
 
-        protected override void ConfigureRequestContainer(Nancy.TinyIoc.TinyIoCContainer container, NancyContext context)
-        {
-            base.ConfigureRequestContainer(container, context);
-
-            container.Register<IUserMapper, UserRepository>();
-        }
+        //protected override void ConfigureRequestContainer(Nancy.TinyIoc.TinyIoCContainer container, NancyContext context)
+        //{
+        //    base.ConfigureRequestContainer(container, context);
+        //}
 
         protected override void RequestStartup(Nancy.TinyIoc.TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines, NancyContext context)
         {
+            //more silly logging, but showing that maybe I can connect to
+            // other systems before a request is executed.
+            // Maybe do some logging, drop commands in a queue, etc.
             pipelines.BeforeRequest += (ctx) =>
             {
                 Console.WriteLine("starting request for {0}", ctx.CurrentUser == null ? "Guest" : ctx.CurrentUser.UserName);
