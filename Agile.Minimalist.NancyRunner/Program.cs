@@ -15,10 +15,8 @@ namespace Agile.Minimalist.NancyRunner
         static void Main(string[] args)
         {
             Console.WriteLine("Starting up Minimalist Service");
-            Console.WriteLine("Initializing Solr Search Service");
-            Startup.Init<Quote>("http://localhost:8983/solr/historicalQuotes");
 
-            Console.WriteLine("Search service initialized.  Start host configuration");
+            Console.WriteLine("Start host configuration");
             var nancyConfig = new HostConfiguration()
             {
                 UrlReservations = new UrlReservations()

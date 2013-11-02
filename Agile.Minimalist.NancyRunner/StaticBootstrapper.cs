@@ -28,6 +28,12 @@ namespace Agile.Minimalist.NancyRunner
 
         protected override void ApplicationStartup(Nancy.TinyIoc.TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines)
         {
+            //initialize my Solr service
+            Console.WriteLine("Initializing Solr Search Service");
+            Startup.Init<Quote>("http://localhost:8983/solr/historicalQuotes");
+            Console.WriteLine("Search service initialized");
+
+
             //register some non-discoverable dependencies
             container
                 .Register<IQuoteRepository>(new QuoteRepository(ServiceLocator.Current.GetInstance<ISolrOperations<Quote>>()));
