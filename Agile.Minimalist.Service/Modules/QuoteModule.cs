@@ -18,6 +18,16 @@ namespace Agile.Minimalist.Modules
         {
             _repo = repo;
 
+            #region Before Request Hook
+
+            Before += ctx =>
+            {
+                Console.WriteLine("I'm about to execute {0}", ctx.Request.Url.ToString());
+                return null;
+            };
+
+            #endregion
+
             Get["/quote"] = _ =>
             {
                 var quotes = _repo.GetAll();
@@ -25,7 +35,13 @@ namespace Agile.Minimalist.Modules
                 return View["Index.cshtml", quotes];
             };
 
-            Get["/api/quote"] = _ => { return _repo.GetAll(); };
+            Get["/api/quote"] = _ =>
+            {
+                //need to materialize the list...
+                //  content negotiation won't render to XML
+                //  but JSON works fine if just an IEnumerable<>
+                return _repo.GetAll().Quotes.ToList();
+            };
 
             Get["/quote/{id}"] = args =>
             {
