@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Agile.Minimalist.Commands, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Source\Agile.Minimalist.Commands.dll</HintPath>
+    </Reference>
+    <Reference Include="Agile.Minimalist.Commands.Writer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Source\Agile.Minimalist.Commands.Writer.dll</HintPath>
+    </Reference>
     <Reference Include="Agile.Minimalist.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Source\Agile.Minimalist.Models.dll</HintPath>
@@ -69,6 +77,12 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Views\Auth\login.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\Card\Results.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\Card\Search.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Views\Quote\Create.cshtml">

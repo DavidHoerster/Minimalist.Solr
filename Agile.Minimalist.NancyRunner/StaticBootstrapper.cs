@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Agile.Minimalist.Model;
+using Agile.Minimalist.Models;
 using Agile.Minimalist.Repository;
 using Microsoft.Practices.ServiceLocation;
 using Nancy;
@@ -31,12 +32,15 @@ namespace Agile.Minimalist.NancyRunner
             //initialize my Solr service
             Console.WriteLine("Initializing Solr Search Service");
             Startup.Init<Quote>("http://localhost:8983/solr/historicalQuotes");
+            Startup.Init<Hitter>("http://localhost:8983/solr/baseball");
             Console.WriteLine("Search service initialized");
 
 
             //register some non-discoverable dependencies
             container
                 .Register<IQuoteRepository>(new QuoteRepository(ServiceLocator.Current.GetInstance<ISolrOperations<Quote>>()));
+            container
+                .Register<ICardRepository>(new CardRepository(ServiceLocator.Current.GetInstance<ISolrOperations<Hitter>>()));
             container.Register<IUserMapper, UserRepository>();
 
 

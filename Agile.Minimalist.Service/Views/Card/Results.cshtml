@@ -1,0 +1,130 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Agile.Minimalist.Models.HitterSearchViewModel>
+
+@{
+    ViewBag.Title = "Results";
+}
+
+<h2>Results</h2>
+
+<fieldset>
+    <legend>Original Criteria</legend>
+    From @Model.OriginalCriteria.YearStart to @Model.OriginalCriteria.YearEnd<br />
+    Min HomeRuns of @Model.OriginalCriteria.MinHomeRuns<br />
+    Max Salary of @Model.OriginalCriteria.MaxSalary<br /><br />
+    Showing @Model.RecordsShown of @Model.NumberFound
+</fieldset>
+
+<form name="facetForm" method="post" action="/card/facetsearch">
+    <input type="hidden" name="MaxSalary" value="@Model.OriginalCriteria.MaxSalary" />
+    <input type="hidden" name="MinHomeRuns" value="@Model.OriginalCriteria.MinHomeRuns" />
+    <input type="hidden" name="YearEnd" value="@Model.OriginalCriteria.YearEnd" />
+    <input type="hidden" name="YearStart" value="@Model.OriginalCriteria.YearStart" />
+    <input type="hidden" name="criteria" />
+    <input type="hidden" name="field" />
+</form>
+
+<div style="width:25%;display:inline-block;float:left;">
+    @foreach (var category in Model.Categories)
+    {
+        <p>
+        <strong>@category.Key</strong><br />
+        @foreach (var item in category.Value.Items)
+	    {
+            <span>@item.Item (<a href="#" onclick="javascript:submitFormWithCriteria('@category.Key','@item.ItemCriteria');">@item.Count</a>)</span><br />
+	    }
+        </p>
+    }
+</div>
+<div style="width:72%;display:inline-block;">
+    <table>
+        <tr>
+            <th>
+                Year
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Team Name
+            </th>
+            <th>
+                Hits
+            </th>
+            <th>
+                Doubles
+            </th>
+            <th>
+                Triples
+            </th>
+            <th>
+                Home Runs
+            </th>
+            <th>
+                RBI
+            </th>
+            <th>
+                Average
+            </th>
+            <th>
+                StrikeOuts
+            </th>
+            <th>
+                Salary
+            </th>
+        </tr>
+
+    @foreach (var item in Model.SearchResults) {
+        <tr>
+            <td>
+                @item.Year
+            </td>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.LastName
+            </td>
+            <td>
+                @item.TeamName
+            </td>
+            <td>
+                @item.Hits
+            </td>
+            <td>
+                @item.Doubles
+            </td>
+            <td>
+                @item.Triples
+            </td>
+            <td>
+                @item.HomeRuns
+            </td>
+            <td>
+                @item.RunsBattedIn
+            </td>
+            <td>
+                @item.Average
+            </td>
+            <td>
+                @item.StrikeOuts
+            </td>
+            <td>
+                @item.Salary
+            </td>
+        </tr>
+    }
+
+    </table>
+</div>
+
+<script>
+    function submitFormWithCriteria(field, criteria) {
+        document.facetForm.criteria.value = criteria;
+        document.facetForm.field.value = field;
+
+        document.facetForm.submit();
+    }
+</script>
