@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DB38EDE5-2B4A-478D-BB55-91251318F02E}</ProjectGuid>
+    <ProjectGuid>{E0A85A82-6F30-4953-BA0F-949776F17161}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Agile.Minimalist.Repository</RootNamespace>
-    <AssemblyName>Agile.Minimalist.Repository</AssemblyName>
+    <RootNamespace>Agile.Common</RootNamespace>
+    <AssemblyName>Agile.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,29 +34,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Source\Agile.Minimalist.Models.dll</HintPath>
     </Reference>
-    <Reference Include="HttpWebAdapters, Version=0.4.0.2002, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="HttpWebAdapters">
       <HintPath>..\..\..\..\SOLRNET_Build\HttpWebAdapters.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\..\..\SOLRNET_Build\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Bson">
-      <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Bson.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Driver">
-      <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
-    </Reference>
-    <Reference Include="Nancy, Version=0.21.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Nancy.0.21.0\lib\net40\Nancy.dll</HintPath>
-    </Reference>
-    <Reference Include="Nancy.Authentication.Forms">
-      <HintPath>..\packages\Nancy.Authentication.Forms.0.21.0\lib\net40\Nancy.Authentication.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="SolrNet, Version=0.4.0.2002, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SolrNet">
       <HintPath>..\..\..\..\SOLRNET_Build\SolrNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -68,16 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardRepository.cs" />
-    <Compile Include="ICardRepository.cs" />
-    <Compile Include="IQuoteRepository.cs" />
+    <Compile Include="ISearchService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuoteRepository.cs" />
-    <Compile Include="QuoteUserIdentity.cs" />
-    <Compile Include="UserRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="SearchFactory.cs" />
+    <Compile Include="SearchService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
